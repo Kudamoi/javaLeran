@@ -1,5 +1,4 @@
 import core.*;
-import core.Camera;
 
 import java.util.Scanner;
 
