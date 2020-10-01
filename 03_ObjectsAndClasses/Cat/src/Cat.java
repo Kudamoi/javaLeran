@@ -1,3 +1,4 @@
+import java.util.Objects;
 
 public class Cat
 {
@@ -9,29 +10,49 @@ public class Cat
 
     private double sumFeed;
 
+    public static int count;
+
     public Cat()
     {
         weight = 1500.0 + 3000.0 * Math.random();
         originWeight = weight;
         minWeight = 1000.0;
         maxWeight = 9000.0;
+        count += 1;
     }
 
     public void meow()
     {
-        weight = weight - 1;
-        System.out.println("Meow");
+        if (weight >= minWeight && weight <= maxWeight) {
+            weight = weight - 1;
+            System.out.println("Meow");
+            if (weight < minWeight) {
+                count -= 1;
+                Objects.requireNonNull(this);
+            }
+        }
+
     }
 
     public void feed(Double amount)
     {
-        weight = weight + amount;
-        sumFeed += amount;
+        if (weight >= minWeight && weight <= maxWeight) {
+            weight = weight + amount;
+            sumFeed += amount;
+            if (weight > maxWeight) {
+                count -= 1;
+            }
+        }
     }
 
     public void drink(Double amount)
     {
-        weight = weight + amount;
+        if (weight >= minWeight && weight <= maxWeight) {
+            weight = weight + amount;
+            if (weight > maxWeight) {
+                count -= 1;
+            }
+        }
     }
 
     public Double getWeight()
@@ -60,7 +81,16 @@ public class Cat
     }
 
     public void pee(Double amount) {
-        weight = weight - amount;
-        System.out.println("KEK");
+        if (weight >= minWeight && weight <= maxWeight) {
+            weight = weight - amount;
+            System.out.println("KEK");
+            if (weight < minWeight) {
+                count -= 1;
+            }
+        }
+    }
+
+    public int getCount() {
+        return count;
     }
 }
