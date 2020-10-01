@@ -22,11 +22,11 @@ public class Loader
         System.out.println(cat.getStatus());
 
         cat1.drink(2000.);
-        System.out.println(cat.getCount());
+        System.out.println(Cat.getCount());
         cat2.pee(10000.);
-        System.out.println(cat.getCount());
+        System.out.println(Cat.getCount());
         cat3.meow();
 
-        System.out.println(cat.getCount());
+        System.out.println(Cat.getCount());
     }
 }

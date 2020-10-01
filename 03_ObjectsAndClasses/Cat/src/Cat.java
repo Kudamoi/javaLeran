@@ -90,7 +90,7 @@ public class Cat
         }
     }
 
-    public int getCount() {
+    public static int getCount() {
         return count;
     }
 }
