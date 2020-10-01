@@ -12,6 +12,12 @@ public class Cat
 
     public static int count;
 
+    private static final int maxweight = 9000;
+    private static final int minweight = 1000;
+    private static final int eye = 2;
+
+    enum Color { Black, Gray, White, Red }
+
     public Cat()
     {
         weight = 1500.0 + 3000.0 * Math.random();
