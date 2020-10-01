@@ -5,15 +5,12 @@ public class Cat
     private double originWeight;
     private double weight;
 
-    private double minWeight;
-    private double maxWeight;
-
     private double sumFeed;
 
     public static int count;
 
-    private static final int maxweight = 9000;
-    private static final int minweight = 1000;
+    private static final Double maxWeight = 9000.0;
+    private static final Double minWeight = 1000.0;
     private static final int eye = 2;
 
     enum Color { Black, Gray, White, Red }
@@ -22,8 +19,12 @@ public class Cat
     {
         weight = 1500.0 + 3000.0 * Math.random();
         originWeight = weight;
-        minWeight = 1000.0;
-        maxWeight = 9000.0;
+        count += 1;
+    }
+
+    public Cat(Double weight) {
+        this.weight = weight;
+        originWeight = this.weight;
         count += 1;
     }
 
