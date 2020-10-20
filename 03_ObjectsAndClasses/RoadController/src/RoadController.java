@@ -89,4 +89,23 @@ public class RoadController
     {
         System.out.println("Проезд невозможен: " + reason);
     }
+
+    public double getPassengerCarMaxWeight () {
+        return passengerCarMaxWeight;
+    }
+    public int getPassengerCarMaxHeight () {
+        return passengerCarMaxHeight;
+    }
+    public int getControllerMaxHeight () {
+        return controllerMaxHeight;
+    }
+    public int getPassengerCarPrice () {
+        return passengerCarPrice;
+    }
+    public int getCargoCarPrice () {
+        return cargoCarPrice;
+    }
+    public int getVehicleAdditionalPrice () {
+        return vehicleAdditionalPrice;
+    }
 }
