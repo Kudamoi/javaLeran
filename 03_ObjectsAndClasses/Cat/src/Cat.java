@@ -145,4 +145,13 @@ public class Cat
         if (checkColor == true)
             this.Color = Color;
     }
+
+    public static Cat copyCat(Cat cat) {
+        Cat newCat = new Cat();
+        newCat.setColor(cat.getColor());
+        newCat.setWeight(cat.getWeight());
+        newCat.setOriginWeight(cat.getOriginWeight());
+        newCat.setSumFeed(cat.getFeedMass());
+        return newCat;
+    }
 }

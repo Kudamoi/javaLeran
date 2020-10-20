@@ -6,6 +6,9 @@ public class Loader
         Cat vasya = getKitten();
         Cat murka = getKitten();
         Cat barsik = getKitten();
+        Cat tester = Cat.copyCat(barsik);
+        System.out.println(barsik.getWeight());
+        System.out.println(tester.getWeight());
 
         System.out.println(vasya.getWeight());
     }
