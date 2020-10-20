@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/homework_4.1/IntegerExperiments/pom.xml" />
+        <option value="$PROJECT_DIR$/homework_4.3/GeometryCalculator/pom.xml" />
+        <option value="$PROJECT_DIR$/homework_4.3/TrucksContainersAndBoxes/pom.xml" />
+        <option value="$PROJECT_DIR$/homework_4.4/FullNameFormatter/pom.xml" />
+        <option value="$PROJECT_DIR$/homework_4.4/MaskingInformation/pom.xml" />
+        <option value="$PROJECT_DIR$/homework_4.4/TotalEarningsCalculator/pom.xml" />
+        <option value="$PROJECT_DIR$/homework_4.5/SplitText/pom.xml" />
+        <option value="$PROJECT_DIR$/homework_4.5/PhoneCleaner/pom.xml" />
+        <option value="$PROJECT_DIR$/homework_4.5/FullNameFormatterRegExp/pom.xml" />
+        <option value="$PROJECT_DIR$/homework_4.5/MaskingInformationReqExp/pom.xml" />
+        <option value="$PROJECT_DIR$/homework_4.5/TotalEarningsCalculatorReqExp/pom.xml" />
+        <option value="$PROJECT_DIR$/homework_4.6/BirthdayCalendar/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_14" project-jdk-name="14" project-jdk-type="JavaSDK" />
+</project>

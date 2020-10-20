@@ -3,6 +3,7 @@ public class Main {
   public static void main(String[] args) {
     Container container = new Container();
     container.count += 7843;
+    System.out.println(container.count);
 
     int sum = sumDigits(7843);
 
@@ -20,7 +21,13 @@ public class Main {
    */
 
   public static int sumDigits(Integer number) {
-    //@TODO: write code here and delete TODO line
-    return 0;
+    int result = 0;
+    if (number == null)
+      return -1;
+    String []save = number.toString().split("");
+    for (String digit : save) {
+      result += Integer.valueOf(digit);
+    }
+    return result;
   }
 }
