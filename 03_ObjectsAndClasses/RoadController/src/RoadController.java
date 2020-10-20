@@ -108,4 +108,22 @@ public class RoadController
     public int getVehicleAdditionalPrice () {
         return vehicleAdditionalPrice;
     }
+    public static void setCargoCarPrice(int cargoCarPrice) {
+        RoadController.cargoCarPrice = cargoCarPrice;
+    }
+    public static void setControllerMaxHeight(int controllerMaxHeight) {
+        RoadController.controllerMaxHeight = controllerMaxHeight;
+    }
+    public static void setPassengerCarMaxHeight(int passengerCarMaxHeight) {
+        RoadController.passengerCarMaxHeight = passengerCarMaxHeight;
+    }
+    public static void setPassengerCarMaxWeight(double passengerCarMaxWeight) {
+        RoadController.passengerCarMaxWeight = passengerCarMaxWeight;
+    }
+    public static void setPassengerCarPrice(int passengerCarPrice) {
+        RoadController.passengerCarPrice = passengerCarPrice;
+    }
+    public static void setVehicleAdditionalPrice(int vehicleAdditionalPrice) {
+        RoadController.vehicleAdditionalPrice = vehicleAdditionalPrice;
+    }
 }
