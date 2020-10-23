@@ -1,3 +1,6 @@
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 public class Main {
 
   public static void main(String[] args) {
@@ -24,9 +27,14 @@ public class Main {
     int result = 0;
     if (number == null)
       return -1;
-    String []save = number.toString().split("");
+    /*String []save = number.toString().split("");
     for (String digit : save) {
       result += Integer.valueOf(digit);
+    }*/
+    String checkString =  String.valueOf(number);
+    for (int i = 0; i < checkString.length(); i++) {
+      int charValue = checkString.charAt(i);
+      result += Character.getNumericValue(charValue);
     }
     return result;
   }
