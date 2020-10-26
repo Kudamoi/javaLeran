@@ -1,16 +1,17 @@
 public class Main {
 
   public static void main(String[] args) {
-
+calculateSalarySum("Вася заработал 5000 рублей, Петя - 7563 рубля, а Маша - 30000 рублей");
   }
 
   public static int calculateSalarySum(String text){
-    //TODO: реализуйте метод
     int result = 0;
-    String[] earnings = text.split("руб");
-    for (int i = 0; i < earnings.length - 1; i++)
-     result += Integer.parseInt(earnings[i].substring(earnings[i].trim().lastIndexOf(" ")).trim());
-
+    System.out.println(text);
+    text = text.replaceAll("[^0-9^\\s]", "").trim();
+    String[] earnings = text.split(" ");
+    for (int i = 0; i < earnings.length; i++)
+      if (!earnings[i].isEmpty())
+        result += Integer.parseInt(earnings[i]);
     return result;
   }
 
