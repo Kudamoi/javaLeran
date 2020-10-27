@@ -38,7 +38,7 @@ public class HomeExperiments {
         int countHealthyPatient = 0;
         float averageTemperature = 0;
 
-        float[] temperaturePatient = new float [COUNT_PATIENT];
+        float[] temperaturePatient = new float[COUNT_PATIENT];
         for (int index = 0; index < temperaturePatient.length; index++) {
             temperaturePatient[index] = (float) (Math.floor(((Math.random() * (MAX_TEMPERATURE - MIN_TEMPERATURE)) + MIN_TEMPERATURE) * 10) / 10);
         }
@@ -58,13 +58,19 @@ public class HomeExperiments {
     public static void drawX() {
         System.out.println();
         System.out.println("Задание 5.1.3:");
+
+        char[][] cross = new char[7][7];
         for (int i = -3; i < 4; i++) {
             for (int j = -3; j < 4; j++) {
-                if (Math.abs(i) == Math.abs(j))
-                    System.out.print("X");
-                else System.out.print(" ");
+                if (Math.abs(i) == Math.abs(j)) {
+                    cross[i + 3][j + 3] = 'X';
+                } else {
+                    cross[i + 3][j + 3] = ' ';
+                }
             }
-            System.out.println();
+        }
+        for (int i = 0; i < 7; i++) {
+            System.out.println(Arrays.toString(cross[i]).replaceAll("]", "").replaceAll("\\[", "").replaceAll(",", ""));
         }
     }
 

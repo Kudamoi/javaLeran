@@ -1,6 +1,6 @@
-
-# Created by https://www.gitignore.io/api/java,linux,macos,maven,windows,jetbrains
-# Edit at https://www.gitignore.io/?templates=java,linux,macos,maven,windows,jetbrains
+*.iml
+*.xml
+*.idea
 
 ### Java ###
 # Compiled class file
@@ -23,6 +23,8 @@
 *.zip
 *.tar.gz
 *.rar
+
+
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
