@@ -3,11 +3,12 @@ import java.util.Scanner;
 import java.util.TreeMap;
 
 public class Main {
+    static HashMap<String, String> telephoneBook = new HashMap<>();
+
     public static void main(String[] args) {
         enter();
     }
 
-    static HashMap<String, String> telephoneBook = new HashMap<>();
 
     public static void enter() {
         while (true) {
@@ -22,19 +23,21 @@ public class Main {
                 continue;
             }
 
-            if (input.matches("[+]?7?8?\\s?[(]?\\d\\d\\d[)]?\\s?\\d\\d\\d\\s?[-]?\\d\\d[-]?\\s?\\d\\d"))
-                if (telephoneBook.containsValue(input)) {
-                    for (String name : telephoneBook.keySet()) {
-                        if (telephoneBook.get(name).equals(input)) {
-                            System.out.println("Имя: " + name + " Телефон: " + telephoneBook.get(name));
-                            break;
-                        }
+            if (input.matches("[+]?7?8?\\s?[(]?\\d\\d\\d[)]?\\s?\\d\\d\\d\\s?[-]?\\d\\d[-]?\\s?\\d\\d")) {
+                boolean checkTelephone = false;
+                for (String name : telephoneBook.keySet()) {
+                    if (replace(telephoneBook.get(name)).equals(replace(input))) {
+                        System.out.println("Имя: " + name + " Телефон: " + telephoneBook.get(name));
+                        checkTelephone = true;
+                        break;
                     }
+                }
+                if (checkTelephone)
                     continue;
-                } else {
+                else {
                     System.out.println("Введите имя");
                     String name = new Scanner(System.in).nextLine();
-                    boolean checkTelephone = false;
+                    checkTelephone = false;
                     for (String checkName : telephoneBook.keySet())
                         if (checkName.equals(name)) {
                             System.out.println("Такой контакт уже существует");
@@ -44,8 +47,9 @@ public class Main {
                         }
                     if (!checkTelephone)
                         telephoneBook.put(name, input);
-                    continue;
                 }
+                continue;
+            }
             searchName(input);
         }
     }
@@ -72,5 +76,9 @@ public class Main {
                 telephoneBook.put(input, telephone);
         } else
             System.out.println("Телефон был введен не верно");
+    }
+
+    public static String replace(String number) {
+        return number.replaceAll("^[+]?7?8?", "").replaceAll("\\s+", "").replaceAll("[(]", "").replaceAll("[)]", "").replaceAll("[-]", "");
     }
 }
