@@ -42,50 +42,35 @@ public class Main {
 
 
     public static void search(String input) {
+        boolean result;
         long start = System.nanoTime();
-        System.out.print("Поиск перебором: номер " + (carNumber.contains(input)?"найден":"не найден") + ", поиск занял ");
+        result = carNumber.contains(input);
         long duration = System.nanoTime() - start;
-        System.out.println(duration + "нс");
+        System.out.println("Поиск перебором: номер " + (result?"найден":"не найден") + ", поиск занял " + duration + "нс");
     }
 
     public static void binarySearch(String input) {
+        boolean result;
         long start = System.nanoTime();
-        System.out.print("Бинарный поиск: номер " + (Collections.binarySearch(carNumber, input) != -1 ? "найден":"не найден") + ", поиск занял ");
+        result = Collections.binarySearch(carNumber, input) != -1;
         long duration = System.nanoTime() - start;
-        System.out.println(duration + "нс");
+        System.out.println("Бинарный поиск: номер " + (result?"найден":"не найден") + ", поиск занял " + duration + "нс");
     }
 
     public static void hashSearch(String input) {
+        boolean result;
         long start = System.nanoTime();
-        System.out.print("Поиск в HashSet: номер " + (hashCarNumber.contains(input)? "найден":"не найден") + ", поиск занял ");
+        result = hashCarNumber.contains(input);
         long duration = System.nanoTime() - start;
-        System.out.println(duration + "нс");
-
-        boolean check = false;
-        start = System.nanoTime();
-        for (String item : hashCarNumber)
-            if (item.equals(input)) {
-                check = true;
-                break;
-            }
-        duration = System.nanoTime() - start;
-        System.out.println("Поиск в HashSet перебором: номер " + (check? "найден":"не найден") + ", поиск занял " + duration);
+        System.out.println("Поиск в HashSet: номер" + (result?"найден":"не найден") + ", поиск занял " + duration + "нс");
     }
 
     public static void treeSearch(String input) {
+        boolean result;
         long start = System.nanoTime();
-        System.out.print("Поиск в TreeSet: номер " + (treeCarNumber.contains(input)? "найден":"не найден") + ", поиск занял ");
+        result = treeCarNumber.contains(input);
         long duration = System.nanoTime() - start;
-        System.out.println(duration + "нс");
+        System.out.println("Поиск в TreeSet: номер" + (result?"найден":"не найден") + ", поиск занял " + duration + "нс");
 
-        boolean check = false;
-        start = System.nanoTime();
-        for (String item : treeCarNumber)
-            if (item.equals(input)) {
-                check = true;
-                break;
-            }
-        duration = System.nanoTime() - start;
-        System.out.println("Поиск в TreeSet перебором: номер " + (check? "найден":"не найден") + ", поиск занял " + duration);
     }
 }
