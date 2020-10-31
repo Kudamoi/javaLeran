@@ -1,6 +1,3 @@
-import java.math.BigDecimal;
-
-
 public class CardAccount extends BankAccount {
 
     public void withdrawMoney(double count) {

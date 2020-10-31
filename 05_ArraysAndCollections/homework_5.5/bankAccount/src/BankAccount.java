@@ -1,8 +1,10 @@
 public class BankAccount {
-    double money;
+    protected double money;
 
     public void withdrawMoney(double count) {
-        this.money -= count;
+        if (money >= count)
+            money -= count;
+        else System.out.println("Недостаточно средств для выполнения данной операции!");
     }
 
     public void depositMoney(double count) {

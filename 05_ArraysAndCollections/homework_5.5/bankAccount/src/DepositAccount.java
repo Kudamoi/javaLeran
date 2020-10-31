@@ -5,11 +5,10 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class DepositAccount extends BankAccount {
-    Calendar enterDate;
-    String lastDepositDate;
-    String allowWithdrawDate;
+    private String lastDepositDate;
+    private String allowWithdrawDate;
 
-    DateFormat format = new SimpleDateFormat("yyyyMMdd");
+    private final DateFormat format = new SimpleDateFormat("yyyyMMdd");
 
     public void withdrawMoney(double count) {
         if (Integer.parseInt(allowWithdrawDate) < Integer.parseInt(format.format(new GregorianCalendar().getTime())))
@@ -21,11 +20,18 @@ public class DepositAccount extends BankAccount {
 
     public void depositMoney(double count) {
         money += count;
-        enterDate = new GregorianCalendar();
+        Calendar enterDate = new GregorianCalendar();
         lastDepositDate = format.format(enterDate.getTime());
 
         enterDate.add(Calendar.MONTH, 1);
 
         allowWithdrawDate = format.format(enterDate.getTime());
+    }
+
+    public String getLastDepositDate() {
+        return lastDepositDate;
+    }
+    public String getAllowWithdrawDate() {
+        return allowWithdrawDate;
     }
 }
