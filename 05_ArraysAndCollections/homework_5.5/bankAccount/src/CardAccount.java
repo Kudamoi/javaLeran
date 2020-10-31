@@ -1,10 +1,10 @@
 public class CardAccount extends BankAccount {
 
-    public void withdrawMoney(double count) {
+    public boolean withdrawMoney(double count) {
         double withPercentCount = count / 100 + count;
-        if (money > withPercentCount) {
-            money -= withPercentCount;
+        if (super.withdrawMoney(withPercentCount)) {
             money = Math.floor(money * 100) / 100;
-        } else System.out.println("На счете недостаточно средств!");
+            return true;
+        } return false;
     }
 }

@@ -10,12 +10,14 @@ public class DepositAccount extends BankAccount {
 
     private final DateFormat format = new SimpleDateFormat("yyyyMMdd");
 
-    public void withdrawMoney(double count) {
-        if (Integer.parseInt(allowWithdrawDate) < Integer.parseInt(format.format(new GregorianCalendar().getTime())))
-            if (count < money)
-                System.out.println("Недостаточно средств для снятия денег!");
-            else money -= count;
-        else System.out.println("Вы не можете снять деньги, так как с последнего депозита не прошел месяц!");
+    public boolean withdrawMoney(double count) {
+        if (Integer.parseInt(allowWithdrawDate) < Integer.parseInt(format.format(new GregorianCalendar().getTime()))) {
+            super.withdrawMoney(count);
+            return true;
+        } else {
+            System.out.println("Вы не можете снять деньги, так как с последнего депозита не прошел месяц!");
+            return false;
+        }
     }
 
     public void depositMoney(double count) {

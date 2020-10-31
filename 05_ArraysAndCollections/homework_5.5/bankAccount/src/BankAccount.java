@@ -1,10 +1,14 @@
 public class BankAccount {
     protected double money;
 
-    public void withdrawMoney(double count) {
-        if (money >= count)
+    public boolean withdrawMoney(double count) {
+        if (money >= count) {
             money -= count;
-        else System.out.println("Недостаточно средств для выполнения данной операции!");
+            return true;
+        } else {
+            System.out.println("Недостаточно средств для выполнения данной операции!");
+            return false;
+        }
     }
 
     public void depositMoney(double count) {
@@ -16,10 +20,11 @@ public class BankAccount {
     }
 
     boolean send(BankAccount account, double amount) {
-        if (this.money >= amount) {
+        if (withdrawMoney(amount)) {
             account.money += amount;
             this.money -= amount;
             return true;
-        } else return false;
+        }
+        return false;
     }
 }
