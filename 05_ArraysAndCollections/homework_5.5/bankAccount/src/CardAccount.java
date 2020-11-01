@@ -1,10 +1,9 @@
 public class CardAccount extends BankAccount {
 
     public boolean withdrawMoney(double count) {
-        double withPercentCount = count / 100 + count;
-        if (super.withdrawMoney(withPercentCount)) {
-            money = Math.floor(money * 100) / 100;
+        double withPercentCount = count * .01 + count;
+        if (super.withdrawMoney(withPercentCount))
             return true;
-        } return false;
+        return false;
     }
 }

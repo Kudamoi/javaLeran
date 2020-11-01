@@ -3,7 +3,7 @@ public class BankAccount {
 
     public boolean withdrawMoney(double count) {
         if (money >= count) {
-            money -= count;
+            money = Double.parseDouble(String.format("%.2f",money - count).replaceAll(",", "."));
             return true;
         } else {
             System.out.println("Недостаточно средств для выполнения данной операции!");
