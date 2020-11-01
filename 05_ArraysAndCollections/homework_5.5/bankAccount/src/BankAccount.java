@@ -1,7 +1,7 @@
-public class BankAccount {
-    protected double money;
+class BankAccount {
+    double money;
 
-    public boolean withdrawMoney(double count) {
+    boolean withdrawMoney(double count) {
         if (money >= count) {
             money = Double.parseDouble(String.format("%.2f",money - count).replaceAll(",", "."));
             return true;
@@ -11,11 +11,11 @@ public class BankAccount {
         }
     }
 
-    public void depositMoney(double count) {
+    void depositMoney(double count) {
         this.money += count;
     }
 
-    public double getMoney() {
+    double getMoney() {
         return money;
     }
 
