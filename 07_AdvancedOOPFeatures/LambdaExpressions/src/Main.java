@@ -2,6 +2,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Stream;
 
 public class Main
 {
@@ -16,6 +17,11 @@ public class Main
                     return o1.getSalary().equals(o2.getSalary()) ? o1.getName().compareTo(o2.getName()) : o1.getSalary().compareTo(o2.getSalary());
                 }
         );
+
+        Stream<Employee> stream = staff.stream();
+        stream.filter(employee -> employee.getWorkStart().getYear() == 117)
+                .max(Comparator.comparing(Employee::getSalary))
+                .ifPresent(System.out::println);
 
         for (Employee employee : staff) {
             System.out.println(employee);
