@@ -11,9 +11,9 @@ public class Company {
         checkIncome();
     }
 
-    void hire(Employee employee, int count) {
+    void hire(Class employee, int count) {
         for (int i = 0; i < count; i++)
-            hire(employee.getClass().equals(Manager.class) ? new Manager() : employee.getClass().equals(TopManager.class) ? new TopManager() : new Operator());
+            hire(employee.equals(Manager.class) ? new Manager() : employee.equals(TopManager.class) ? new TopManager() : new Operator());
         checkIncome();
     }
 
@@ -22,19 +22,15 @@ public class Company {
         checkIncome();
     }
 
-    void fire(int index) {
-        if (index < employees.size()) {
-            employees.remove(index);
-            checkIncome();
-            return;
-        }
-        System.out.println("Работника с таким номером нет!");
+    void fire(Employee employee) {
+        employees.remove(employee);
+        checkIncome();
     }
 
     void fire(double percent) {
         int count = 0;
         if (percent <= 100 && percent >= 0)
-            count = (int) (employees.size() * percent/100);
+            count = (int) (employees.size() * percent / 100);
         for (int i = 0; i < count; i++) {
             employees.remove((int) (Math.random() * employees.size()));
         }

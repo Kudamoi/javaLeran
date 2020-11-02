@@ -3,9 +3,9 @@ public class Main {
         Company test = new Company();
 
         System.out.println("Условие 1");
-        test.hire(new Operator(), 180);
-        test.hire(new Manager(), 80);
-        test.hire(new TopManager(), 10);
+        test.hire(Operator.class, 180);
+        test.hire(Manager.class, 80);
+        test.hire(TopManager.class, 10);
 
         System.out.println(test.employees.size() + " - нанято сотрудников");
         System.out.println(test.getIncome() + " - доход компании");
