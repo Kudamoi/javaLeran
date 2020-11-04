@@ -96,6 +96,7 @@ public class RouteCalculator
 
         List<Station> fromLineStations = from.getLine().getStations();
         List<Station> toLineStations = to.getLine().getStations();
+        boolean checker = false;
         for(Station srcStation : fromLineStations)
         {
             for(Station dstStation : toLineStations)
@@ -110,9 +111,12 @@ public class RouteCalculator
                         route.clear();
                         route.addAll(way);
                     }
+                    checker = true;
                 }
             }
         }
+        if (!checker)
+            return null;
         return route;
     }
 

@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class RouteCalculatorTest extends TestCase {
 
@@ -14,6 +15,7 @@ public class RouteCalculatorTest extends TestCase {
     Line line1 = new Line(1, "Первая");
     Line line2 = new Line(2, "Вторая");
     Line line3 = new Line(3, "Третья");
+    Line line4 = new Line(4, "Четвертая");
 
     Station first = new Station("Первая", line1);
     Station second = new Station("Вторая", line1);
@@ -24,10 +26,16 @@ public class RouteCalculatorTest extends TestCase {
     Station seventh = new Station("Шестая", line3);
     Station eights = new Station("Пятая", line3);
     Station nines = new Station("Седьмая", line3);
+    Station ten = new Station("Десятая", line4);
+    Station eleven = new Station("Одинадцатая", line4);
+    Station twelve = new Station("Двенадцатая", line4);
 
-    List<Station> connections = new ArrayList<Station>() {{
+    List<Station> connections1 = new ArrayList<Station>() {{
         add(second);
         add(fourth);
+    }};
+
+    List<Station> connections2 = new ArrayList<Station>() {{
         add(sixth);
         add(eights);
     }};
@@ -58,8 +66,12 @@ public class RouteCalculatorTest extends TestCase {
         stationIndex.addStation(seventh);
         stationIndex.addStation(eights);
         stationIndex.addStation(nines);
+        stationIndex.addStation(ten);
+        stationIndex.addStation(eleven);
+        stationIndex.addStation(twelve);
 
-        stationIndex.addConnection(connections);
+        stationIndex.addConnection(connections1);
+        stationIndex.addConnection(connections2);
 
         line1.addStation(first);
         line1.addStation(second);
@@ -70,6 +82,10 @@ public class RouteCalculatorTest extends TestCase {
         line3.addStation(seventh);
         line3.addStation(eights);
         line3.addStation(nines);
+
+        line4.addStation(ten);
+        line4.addStation(eleven);
+        line4.addStation(twelve);
 
     }
 
@@ -99,6 +115,24 @@ public class RouteCalculatorTest extends TestCase {
         List<Station> actual = test.getShortestRoute(first, third);
         assertEquals(excepted, actual);
     }
+    public void testGetShortestRouteWithoutConnection() {
+        RouteCalculator test = new RouteCalculator(stationIndex);
+        List<Station> excepted = new ArrayList<Station>() {{
+
+        }};
+        List<Station> actual = test.getShortestRoute(first, twelve);
+        assertEquals(excepted, actual);
+    }
+    public void testGetShortestRouteOnOneLineTwo() {
+        RouteCalculator test = new RouteCalculator(stationIndex);
+        List<Station> excepted = new ArrayList<Station>() {{
+            add(ten);
+            add(eleven);
+            add(twelve);
+        }};
+        List<Station> actual = test.getShortestRoute(ten, twelve);
+        assertEquals(excepted, actual);
+    }
     public void testGetShortestRouteOnThreeLine() {
         RouteCalculator test = new RouteCalculator(stationIndex);
         List<Station> excepted = new ArrayList<Station>() {{
@@ -110,7 +144,6 @@ public class RouteCalculatorTest extends TestCase {
            add(eights);
            add(nines);
         }};
-        System.out.println(first.getLine().getNumber() + " " + nines.getLine().getNumber());
         List<Station> actual = test.getShortestRoute(first, nines);
         assertEquals(excepted, actual);
     }
