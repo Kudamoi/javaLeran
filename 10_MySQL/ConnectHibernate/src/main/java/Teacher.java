@@ -11,9 +11,9 @@ public class Teacher {
     private int salary;
     private int age;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "courses",
-            inverseJoinColumns = @JoinColumn(name = "teacher_id")
+    @OneToMany(targetEntity = Course.class,
+            cascade = CascadeType.ALL,
+        mappedBy = "teacher"
     )
 
     List<Course> courseList;
