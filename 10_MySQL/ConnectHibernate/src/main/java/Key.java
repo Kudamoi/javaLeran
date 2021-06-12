@@ -1,7 +1,10 @@
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.EmbeddedId;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Embeddable
 public class Key implements Serializable {
     @Column(name = "student_id")
     private int studentId;

@@ -20,14 +20,14 @@ public class Main {
 
         Session session = sessionFactory.openSession();
 
-//        Teacher teacher = session.get(Teacher.class, 2);
-//    List<Course> courses = teacher.getCourseList();
-//        for (Course cours: courses) {
-//            System.out.println(cours.getName());
-//        }
+        Student student = session.get(Student.class, 2);
+        List<Course> courses = student.getCourseList();
+        for (Course cours : courses) {
+            System.out.println(cours.getName());
+        }
 
-        Subscription subscription = session.get(Subscription.class, new Key(2, 3));
-        System.out.println(subscription);
+//        Subscription subscription = session.get(Subscription.class, new Key(1, 2));
+//        System.out.println(subscription.getCourse());
 
         sessionFactory.close();
     }
