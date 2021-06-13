@@ -5,12 +5,15 @@ import java.util.Date;
 @Entity
 @Table(name = "Subscriptions")
 public class Subscription {
-    @ManyToOne(cascade = CascadeType.ALL)
+
+    @ManyToOne(targetEntity=Student.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "student_id", insertable = false, updatable = false)
     private Student student;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity=Course.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "course_id", insertable = false, updatable = false)
     private Course course;
-
+    
     @Column(name = "subscription_date", updatable = false)
     private Date subscriptionDate;
 
