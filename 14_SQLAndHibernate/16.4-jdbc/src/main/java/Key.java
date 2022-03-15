@@ -11,10 +11,7 @@ public class Key implements Serializable {
     @Column(name = "course_id")
     private int courseId;
 
-    public Key() {
-        System.out.println("Обязательно нужно укзаывать ID студента и ID курса");
-        System.exit (1);
-    }
+    public Key() {}
 
     public Key(int studentId, int courseId) {
         this.studentId = studentId;

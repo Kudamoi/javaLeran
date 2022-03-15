@@ -1,12 +1,17 @@
-import javax.persistence.Column;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
-
-@Table(name = "PurchaseList")
+@Entity
+@Table(name = "purchaselist")
 public class Purchase {
+
+    @EmbeddedId
+    private PurchaseKey id;
+
+    @Column(name = "student_name", insertable = false, updatable = false)
     private String studentName;
 
+    @Column(name = "course_name", insertable = false, updatable = false)
     private String courseName;
 
     private int price;
@@ -14,6 +19,13 @@ public class Purchase {
     @Column(name = "subscription_date")
     private Date subscriptionDate;
 
+    public PurchaseKey getId() {
+        return id;
+    }
+
+    public void setId(PurchaseKey id) {
+        this.id = id;
+    }
 
     public String getStudentName() {
         return studentName;
