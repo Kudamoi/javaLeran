@@ -2,6 +2,7 @@ public class Account {
 
     private long money;
     private String accNumber;
+    private boolean block;
 
     public long getMoney() {
         return money;
@@ -17,5 +18,13 @@ public class Account {
 
     public void setAccNumber(String accNumber) {
         this.accNumber = accNumber;
+    }
+
+    public boolean isBlocked() {
+        return this.block;
+    }
+
+    public void setBlock(boolean bool) {
+        this.block = bool;
     }
 }
