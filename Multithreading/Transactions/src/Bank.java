@@ -20,10 +20,10 @@ public class Bank {
      * метод isFraud. Если возвращается true, то делается блокировка счетов (как – на ваше
      * усмотрение)
      */
-    public void transfer(String fromAccountNum, String toAccountNum, long amount) {
+    public synchronized void transfer(String fromAccountNum, String toAccountNum, long amount) {
         long balFrom = this.getBalance(fromAccountNum);
         long balTo = this.getBalance(toAccountNum);
-        StringBuffer log = new StringBuffer("Перевод с аккаунта " + fromAccountNum + "(" + balFrom + ") на аккаунт " + toAccountNum + "(" + balTo + "). Сумма " + amount);
+        StringBuilder log = new StringBuilder("Перевод с аккаунта " + fromAccountNum + "(" + balFrom + ") на аккаунт " + toAccountNum + "(" + balTo + "). Сумма " + amount);
         if (!this.accounts.get(fromAccountNum).isBlocked() && !this.accounts.get(toAccountNum).isBlocked()) {
             if (balFrom >= amount) {
                 if (amount <= 50000) {
