@@ -20,48 +20,51 @@ public class Bank {
      * метод isFraud. Если возвращается true, то делается блокировка счетов (как – на ваше
      * усмотрение)
      */
-    public synchronized void transfer(String fromAccountNum, String toAccountNum, long amount) {
-        long balFrom = this.getBalance(fromAccountNum);
-        long balTo = this.getBalance(toAccountNum);
-        StringBuilder log = new StringBuilder("Перевод с аккаунта " + fromAccountNum + "(" + balFrom + ") на аккаунт " + toAccountNum + "(" + balTo + "). Сумма " + amount);
-        if (!this.accounts.get(fromAccountNum).isBlocked() && !this.accounts.get(toAccountNum).isBlocked()) {
-            if (balFrom >= amount) {
-                if (amount <= 50000) {
-                    this.accounts.get(fromAccountNum).setMoney(balFrom - amount);
-                    this.accounts.get(toAccountNum).setMoney(balTo + amount);
-                    log.append("\n\tБаланс после перевода ").append(fromAccountNum).append("(").append(this.getBalance(fromAccountNum)).append(") на аккаунт ").append(toAccountNum).append("(").append(this.getBalance(toAccountNum)).append(")");
-                } else {
-                    try {
-                        log.append("\n\tПеревод отправлен на проверку системой безопасности");
-                        if (isFraud(fromAccountNum, toAccountNum, amount)) {
-                            this.accounts.get(fromAccountNum).setBlock(true);
-                            this.accounts.get(toAccountNum).setBlock(true);
-                            log.append("\n\tАккаунты (").append(fromAccountNum).append(", ").append(toAccountNum).append(") заблокированы, службой безопасности!");
-                        } else {
+    public void transfer(String fromAccountNum, String toAccountNum, long amount) {
+        synchronized (this.accounts.get(fromAccountNum)) {
+            long balFrom = this.getBalance(fromAccountNum);
+            StringBuilder log = new StringBuilder("Перевод с аккаунта " + fromAccountNum + "(" + balFrom + ") на аккаунт " + toAccountNum + ". Сумма " + amount);
+            if (!this.accounts.get(fromAccountNum).isBlocked() && !this.accounts.get(toAccountNum).isBlocked()) {
+                if (balFrom >= amount) {
+                    synchronized (this.accounts.get(toAccountNum)) {
+                        long balTo = this.getBalance(toAccountNum);
+                        if (amount <= 50000) {
                             this.accounts.get(fromAccountNum).setMoney(balFrom - amount);
                             this.accounts.get(toAccountNum).setMoney(balTo + amount);
-                            log.append("\n\tАккаунту ").append(fromAccountNum).append(", разрешено сделать перевод на ").append(toAccountNum).append(" службой безопасности!");
-                            log.append("\n\t- Баланс после перевода ").append(fromAccountNum).append("(").append(this.getBalance(fromAccountNum)).append(") на аккаунт ").append(toAccountNum).append("(").append(this.getBalance(toAccountNum)).append(")");
+                            log.append("\n\tБаланс после перевода ").append(fromAccountNum).append("(").append(this.getBalance(fromAccountNum)).append(") на аккаунт ").append(toAccountNum).append("(").append(this.getBalance(toAccountNum)).append(")");
+                        } else {
+                            try {
+                                log.append("\n\tПеревод отправлен на проверку системой безопасности");
+                                if (isFraud(fromAccountNum, toAccountNum, amount)) {
+                                    this.accounts.get(fromAccountNum).setBlock(true);
+                                    this.accounts.get(toAccountNum).setBlock(true);
+                                    log.append("\n\tАккаунты (").append(fromAccountNum).append(", ").append(toAccountNum).append(") заблокированы, службой безопасности!");
+                                } else {
+                                    this.accounts.get(fromAccountNum).setMoney(balFrom - amount);
+                                    this.accounts.get(toAccountNum).setMoney(balTo + amount);
+                                    log.append("\n\tАккаунту ").append(fromAccountNum).append(", разрешено сделать перевод на ").append(toAccountNum).append(" службой безопасности!");
+                                    log.append("\n\t- Баланс после перевода ").append(fromAccountNum).append("(").append(this.getBalance(fromAccountNum)).append(") на аккаунт ").append(toAccountNum).append("(").append(this.getBalance(toAccountNum)).append(")");
+                                }
+                            } catch (InterruptedException e) {
+                                log.append(e.getMessage());
+                            }
                         }
-                    } catch (InterruptedException e) {
-                        log.append(e.getMessage());
                     }
-
-
+                } else {
+                    log.append("\n\tНедостаточно средств для совершения операции!").append("\n\t- Ваш (").append(fromAccountNum).append(") баланс: ").append(balFrom).append(". Попытка перевода: ").append(amount).append(" на аккаунт ").append(toAccountNum);
+                    log.append("\n");
                 }
             } else {
-                log.append("\n\tНедостаточно средств для совершения операции!").append("\n\t- Ваш (").append(fromAccountNum).append(") баланс: ").append(balFrom).append(". Попытка перевода: ").append(amount).append(" на аккаунт ").append(toAccountNum);
+                if (!this.accounts.get(fromAccountNum).isBlocked()) {
+                    log.append("\n\tВаш аккаунт заблокирован, перевод невозможен!");
+                } else {
+                    log.append("\n\tАккаунт приема перевода заблокирован, перевод невозможен!");
+                }
             }
 
-        } else {
-            if (!this.accounts.get(fromAccountNum).isBlocked()) {
-                log.append("\n\tВаш аккаунт заблокирован, перевод невозможен!");
-            } else {
-                log.append("\n\tАккаунт приема перевода заблокирован, перевод невозможен!");
-            }
+            log.append("\n");
+            System.out.println(log);
         }
-        log.append("\n");
-        System.out.println(log);
     }
 
     /**
