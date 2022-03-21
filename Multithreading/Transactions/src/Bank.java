@@ -1,7 +1,5 @@
 import java.text.NumberFormat;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Random;
+import java.util.*;
 
 public class Bank {
     NumberFormat f = NumberFormat.getInstance();
@@ -21,35 +19,44 @@ public class Bank {
      * усмотрение)
      */
     public void transfer(String fromAccountNum, String toAccountNum, long amount) {
-        synchronized (this.accounts.get(fromAccountNum)) {
+        synchronized (new HashSet<>(Arrays.asList(this.accounts.get(fromAccountNum), this.accounts.get(toAccountNum)))) {
+
             long balFrom = this.getBalance(fromAccountNum);
-            StringBuilder log = new StringBuilder("Перевод с аккаунта " + fromAccountNum + "(" + balFrom + ") на аккаунт " + toAccountNum + ". Сумма " + amount);
+            long balTo = this.getBalance(toAccountNum);
+            StringBuilder log = new StringBuilder("Перевод с аккаунта " + fromAccountNum + "(" + balFrom + ") на аккаунт " + toAccountNum + "(" + balTo + "). Сумма " + amount);
+
             if (!this.accounts.get(fromAccountNum).isBlocked() && !this.accounts.get(toAccountNum).isBlocked()) {
                 if (balFrom >= amount) {
-                    synchronized (this.accounts.get(toAccountNum)) {
-                        long balTo = this.getBalance(toAccountNum);
-                        if (amount <= 50000) {
-                            this.accounts.get(fromAccountNum).setMoney(balFrom - amount);
-                            this.accounts.get(toAccountNum).setMoney(balTo + amount);
-                            log.append("\n\tБаланс после перевода ").append(fromAccountNum).append("(").append(this.getBalance(fromAccountNum)).append(") на аккаунт ").append(toAccountNum).append("(").append(this.getBalance(toAccountNum)).append(")");
-                        } else {
-                            try {
-                                log.append("\n\tПеревод отправлен на проверку системой безопасности");
-                                if (isFraud(fromAccountNum, toAccountNum, amount)) {
-                                    this.accounts.get(fromAccountNum).setBlock(true);
-                                    this.accounts.get(toAccountNum).setBlock(true);
-                                    log.append("\n\tАккаунты (").append(fromAccountNum).append(", ").append(toAccountNum).append(") заблокированы, службой безопасности!");
-                                } else {
-                                    this.accounts.get(fromAccountNum).setMoney(balFrom - amount);
-                                    this.accounts.get(toAccountNum).setMoney(balTo + amount);
-                                    log.append("\n\tАккаунту ").append(fromAccountNum).append(", разрешено сделать перевод на ").append(toAccountNum).append(" службой безопасности!");
-                                    log.append("\n\t- Баланс после перевода ").append(fromAccountNum).append("(").append(this.getBalance(fromAccountNum)).append(") на аккаунт ").append(toAccountNum).append("(").append(this.getBalance(toAccountNum)).append(")");
-                                }
-                            } catch (InterruptedException e) {
-                                log.append(e.getMessage());
+
+                    if (amount <= 50000) {
+
+                        this.accounts.get(fromAccountNum).setMoney(balFrom - amount);
+                        this.accounts.get(toAccountNum).setMoney(balTo + amount);
+
+                        log.append("\n\tБаланс после перевода ").append(fromAccountNum).append("(").append(this.getBalance(fromAccountNum)).append(") на аккаунт ").append(toAccountNum).append("(").append(this.getBalance(toAccountNum)).append(")");
+
+                    } else {
+                        try {
+
+                            log.append("\n\tПеревод отправлен на проверку системой безопасности");
+
+                            if (isFraud(fromAccountNum, toAccountNum, amount)) {
+                                this.accounts.get(fromAccountNum).setBlock(true);
+                                this.accounts.get(toAccountNum).setBlock(true);
+
+                                log.append("\n\tАккаунты (").append(fromAccountNum).append(", ").append(toAccountNum).append(") заблокированы, службой безопасности!");
+                            } else {
+                                this.accounts.get(fromAccountNum).setMoney(balFrom - amount);
+                                this.accounts.get(toAccountNum).setMoney(balTo + amount);
+
+                                log.append("\n\tАккаунту ").append(fromAccountNum).append(", разрешено сделать перевод на ").append(toAccountNum).append(" службой безопасности!");
+                                log.append("\n\t- Баланс после перевода ").append(fromAccountNum).append("(").append(this.getBalance(fromAccountNum)).append(") на аккаунт ").append(toAccountNum).append("(").append(this.getBalance(toAccountNum)).append(")");
                             }
+                        } catch (InterruptedException e) {
+                            log.append(e.getMessage());
                         }
                     }
+
                 } else {
                     log.append("\n\tНедостаточно средств для совершения операции!").append("\n\t- Ваш (").append(fromAccountNum).append(") баланс: ").append(balFrom).append(". Попытка перевода: ").append(amount).append(" на аккаунт ").append(toAccountNum);
                     log.append("\n");
