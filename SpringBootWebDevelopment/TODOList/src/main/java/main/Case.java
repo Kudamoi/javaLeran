@@ -4,6 +4,8 @@ public class Case {
     private int id;
     private String name;
 
+    public Case() {}
+
     public Case(String name) {
         this.name = name;
     }

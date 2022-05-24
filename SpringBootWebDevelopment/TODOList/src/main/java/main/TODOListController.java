@@ -1,10 +1,12 @@
 package main;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -16,9 +18,14 @@ public class TODOListController {
         return Storage.getAllCases();
     }
 
-    @RequestMapping(value = "/list/", method = RequestMethod.PUT)
-    public Case add(Case cas) {
-        return Storage.add(cas);
+    @RequestMapping(value = "/list/", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public ResponseEntity<?> add(@RequestParam String name) {
+        return new ResponseEntity<>(Storage.add(new Case(name)), HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/list/", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<?> add(@RequestBody Case cas) {
+        return new ResponseEntity<>(Storage.add(cas), HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/list/{id}", method = RequestMethod.DELETE)
