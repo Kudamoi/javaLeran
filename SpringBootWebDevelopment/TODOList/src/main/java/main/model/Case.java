@@ -1,6 +1,13 @@
-package main;
+package main.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "cases")
 public class Case {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
 
