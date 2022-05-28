@@ -1,21 +1,22 @@
-(() => {
+document.addEventListener("DOMContentLoaded", function() {
+
   let form = $(".main__form");
   let list = $(".main__list");
 
-  $.ajax({
-    url: "/list/",
-    type: "GET",
-    dataType: "json",
-    success: function (response) {
-      for (let i = 0; i < response.length; i++) {
-        createCase(response[i]);
-      }
-    },
-    error: function (response) {
-      console.log("ERROR");
-      console.log(response);
-    },
-  })
+//  $.ajax({
+//    url: "/list/",
+//    type: "GET",
+//    dataType: "json",
+//    success: function (response) {
+//      for (let i = 0; i < response.length; i++) {
+//        createCase(response[i]);
+//      }
+//    },
+//    error: function (response) {
+//      console.log("ERROR");
+//      console.log(response);
+//    },
+//  })
 
   form.on("submit", (e) => {
     e.preventDefault();
@@ -40,10 +41,15 @@
     }
   });
 
+list.find(".main__item").each(function() {
+addEvent($(this).find("button")[0])
+});
+
   function createCase(response) {
     let cas = document.createElement("li");
     let content = document.createElement("span");
     let button = document.createElement("button");
+    cas.classList.add("main__item");
 
     button.dataset.id = response.id;
     button.textContent = "Delete case";
@@ -74,4 +80,4 @@
       })
     });
   }
-})();
+});

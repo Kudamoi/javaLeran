@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,  initial-scale=1.0,">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ToDoList</title>
+    <script defer src="/jquery.min.js"></script>
+    <script defer src="/script.js"></script>
+</head>
+<body>
+<style>
+    .main__item {
+        display: flex;
+    }
+</style>
+<main class="main">
+    <h1 class="main__title">ToDoList</h1>
+    <form class="main__form">
+        <label class="main__label">
+            <input type="text" name="name" class="main__field">
+        </label>
+        <button>Add TODO</button>
+    </form>
+    <ul class="main__list">
+        <li th:each="cas: ${cases}" class="main__item">
+            <span th:text="${cas.name}">0</span>
+            <button th:attr="data-id=${cas.id}">Delete</button>
+        </li>
+    </ul>
+</main>
+</body>
+</html>
