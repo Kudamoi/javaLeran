@@ -5,7 +5,6 @@ import org.redisson.api.RedissonClient;
 import org.redisson.client.RedisConnectionException;
 import org.redisson.config.Config;
 
-import java.sql.Timestamp;
 import java.util.HashMap;
 
 import static java.lang.System.out;
