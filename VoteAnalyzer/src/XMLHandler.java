@@ -3,8 +3,10 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Set;
 
 public class XMLHandler extends DefaultHandler {
 
@@ -38,12 +40,23 @@ public class XMLHandler extends DefaultHandler {
         }
     }
 
-    public  void printDuplicatedVoters() {
-        for (Voter voter : voterCounts.keySet()) {
-            int count = voterCounts.get(voter);
-            if(count > 1) {
-                System.out.println(voter.toString() + " - " + count);
+    public ArrayList<String> generateInsertQuery() {
+        StringBuilder query = new StringBuilder();
+
+        SimpleDateFormat dayFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Set<Voter> keyVoters = voterCounts.keySet();
+        ArrayList<String> queryValuesList = new ArrayList<>();
+
+        for (Voter voter : keyVoters) {
+
+            if (query.length() > 3000000) {
+                queryValuesList.add(query.toString());
+                query.setLength(0);
             }
+
+            query.append((query.length() == 0 ? "" : ",") + "('" + voter.getName() + "', '" + dayFormat.format(voter.getBirthDay()) + "', 1)");
         }
+
+        return queryValuesList;
     }
 }
